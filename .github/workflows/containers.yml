@@ -30,3 +30,20 @@ jobs:
             node --version
             cat /etc/os-release
             echo "MY_SETTING=$MY_SETTING"
+
+  job-container:
+    runs-on: ubuntu-latest
+    container:
+      image: node:22-bookworm-slim
+    services:
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 5
+    steps:
+      - name: Reach the service by name
+        run: |
+          node -e "const s=require('net').connect(6379,'redis',()=>{s.write('PING\r\n')});s.on('data',d=>{console.log(d.toString());s.end()})"
