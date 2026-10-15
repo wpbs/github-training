@@ -1,0 +1,37 @@
+name: Hello World (python)
+description: Greet someone and record the time
+inputs:
+  who-to-greet:
+    description: Who to greet
+    required: true
+    default: World
+outputs:
+  time:
+    description: The time we greeted you
+    value: ${{ steps.greet.outputs.time }}
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v7.0.0
+      with:
+        python-version: '3.x'
+
+    - name: Greet
+      id: greet
+      shell: python
+      run: |
+        import os
+        from datetime import datetime, timezone
+
+        who = os.environ["INPUT_WHO_TO_GREET"]
+        print(f"Hello {who}.")
+
+        # Workflow command: show an annotation in the run summary
+        print(f"::notice::Greeted {who}")
+
+        # Write outputs to the file in GITHUB_OUTPUT (not ::set-output)
+        with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+            output.write(f"time={datetime.now(timezone.utc).isoformat()}\n")
+      env:
+        INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
