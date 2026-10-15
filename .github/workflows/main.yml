@@ -1,4 +1,7 @@
 name: demo
+
+permissions:
+  contents: read
 on: 
   push:
   workflow_dispatch:
@@ -18,3 +21,24 @@ jobs:
           echo "Files in the repository:"
           ls -R
 
+  Build2:
+    runs-on: ubuntu-26.04
+    steps:
+      - run: |
+          echo "🎉 The job was triggered by event: $EVENT_NAME"
+          echo "🔎 The name of your branch is $REF and your repository is $REPOSITORY."
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          REPOSITORY: ${{ github.repository }}
+
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: List files in the repository
+        run: |
+          echo "The repository $REPOSITORY contains the following files:"
+          tree
+        env:
+          REPOSITORY: ${{ github.repository }}
