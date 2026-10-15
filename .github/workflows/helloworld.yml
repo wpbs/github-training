@@ -1,0 +1,42 @@
+name: CI Build for custom actions
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'hello-world-*-action/**' ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docker:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - id: hello-action
+        uses: $/hello-world-docker-action
+        with:
+          who-to-greet: '@jessehouwing'
+      - run: echo "The time was $TIME when the action said hello"
+        env:
+          TIME: ${{ steps.hello-action.outputs.time }}
+
+  composite-python:
+    strategy:
+      matrix:
+        os: [ubuntu-26.04, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - id: hello-action
+        uses: $/hello-world-composite-python-action
+        with:
+          who-to-greet: '@jessehouwing'
+      - run: echo "The time was $env:TIME when the action said hello"
+        shell: pwsh
+        env:
+          TIME: ${{ steps.hello-action.outputs.time }}
