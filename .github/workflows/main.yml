@@ -31,8 +31,9 @@ jobs:
           echo "Files in the repository:"
           ls -R
 
-  Build2:
+  test:
     runs-on: ubuntu-26.04
+    needs: build
     steps:
       - run: |
           echo "🎉 The job was triggered by event: $EVENT_NAME"
@@ -51,4 +52,18 @@ jobs:
           echo "The repository $REPOSITORY contains the following files:"
           tree
         env:
+          REPOSITORY: ${{ github.repository }}
+
+  loadtest:
+    runs-on: ubuntu-26.04
+    needs: test
+    # only run when triggered manual
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - run: |
+          echo "🎉 The job was triggered by event: $EVENT_NAME"
+          echo "🔎 The name of your branch is $REF and your repository is $REPOSITORY."
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
           REPOSITORY: ${{ github.repository }}
