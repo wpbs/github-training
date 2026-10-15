@@ -2,6 +2,9 @@ name: Reuse other workflow
 
 on: [workflow_dispatch]
 
+permissions:
+  contents: read
+
 jobs:
   call-workflow:
     uses: $/.github/workflows/reusable.yml
