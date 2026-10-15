@@ -5,9 +5,16 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v6
       - run: |
           echo ${{github.ref_name}}
+      - run: | # Output the name of the event that triggered the workflow
+          echo "Event name: ${{ github.event_name }}"
+      - run: | # Output the name of the branch that the repository is currently referencing
+          echo "Branch name: ${{ github.ref_name }}"
+      - run: | # List all files in the repository
+          echo "Files in the repository:"
+          ls -R
 
