@@ -3,10 +3,15 @@ name: containers
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
     step-container:
         runs-on: ubuntu-26.04
         steps:
+        - name: On the runner
+          run: cat /etc/os-release
         - name: Run alpine container
           uses: docker://alpine:3.22
           with:
