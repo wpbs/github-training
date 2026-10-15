@@ -10,4 +10,4 @@ jobs:
       - uses: actions/checkout@v6
       - run: |
           echo ${{github.ref_name}}
-          
+
