@@ -52,10 +52,10 @@ jobs:
         runs-on: ubuntu-latest
         container: alpine:3.22
         steps:
-        - uses: actions/checkout@v6
-          with:
-            persist-credentials: false
 
         - name: Needs git and bash
           shell: bash
           run: git log -1
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
