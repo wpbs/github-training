@@ -1,0 +1,22 @@
+name: GitHub Actions Demo
+on:
+  schedule:
+    - cron: '15 6 * * 0'
+  pull_request:
+    branches: [main]
+  push:
+    branches:
+      # on every push to the main branch, but not when there are changes to files in the .github folder.
+      - main
+    paths-ignore: 
+      - '.github/**'
+  workflow_dispatch:
+
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v6
+          - run: |
+              echo ${{github.ref_name}}
