@@ -2,7 +2,7 @@ name: CI Build for custom actions
 on:
   push:
     branches: [ main ]
-    paths: [ 'hello-world-*-action/**' ]
+    #paths: [ 'hello-world-*-action/**' ]
   workflow_dispatch:
 
 permissions:
