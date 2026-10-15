@@ -52,10 +52,12 @@ jobs:
         runs-on: ubuntu-latest
         container: alpine:3.22
         steps:
+        - name: Install the tools that actions expect
+          run: apk add --no-cache bash git jq curl
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
 
         - name: Needs git and bash
           shell: bash
           run: git log -1
-        - uses: actions/checkout@v6
-          with:
-            persist-credentials: false
