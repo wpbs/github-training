@@ -2,7 +2,7 @@ name: Hello World (python)
 description: Greet someone and record the time
 inputs:
   who-to-greet:
-    description: Who to greet
+    description: Who to greeeeet
     required: true
     default: World
 outputs:
