@@ -2,6 +2,7 @@
 name: containers
 on:
   workflow_dispatch:
+  push:
 
 permissions:
   contents: read
@@ -17,3 +18,15 @@ jobs:
           with:
             entrypoint: /bin/sh
             args: -c "cat /etc/os-release"
+
+    job-container:
+        runs-on: ubuntu-latest
+        container:
+            image: node:22-bookworm-slim
+            env:
+                MY_SETTING: from-the-container-block
+        steps:
+        - run: |
+            node --version
+            cat /etc/os-release
+            echo "MY_SETTING=$MY_SETTING"
