@@ -2,6 +2,11 @@ name: demo
 
 permissions:
   contents: read
+
+  
+cache-mode: none
+
+
 on: 
   push:
   workflow_dispatch:
