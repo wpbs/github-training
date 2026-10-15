@@ -47,3 +47,15 @@ jobs:
           - name: Reach the service by name
             run: |
                 node -e "const s=require('net').connect(6379,'redis',()=>{s.write('PING\r\n')});s.on('data',d=>{console.log(d.toString());s.end()});"
+
+    missing-tools:
+        runs-on: ubuntu-latest
+        container: alpine:3.22
+        steps:
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
+
+        - name: Needs git and bash
+          shell: bash
+          run: git log -1
