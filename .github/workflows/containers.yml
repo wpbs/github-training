@@ -46,4 +46,4 @@ jobs:
         steps:
           - name: Reach the service by name
             run: |
-                node -e "const s=require('net').connect(6379,'redis',()=>{s.write('PING\r\n')});s.on('data',d=>{console.log(d.toString());s.end()})}"
+                node -e "const s=require('net').connect(6379,'redis',()=>{s.write('PING\r\n')});s.on('data',d=>{console.log(d.toString());s.end()});"
