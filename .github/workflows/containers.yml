@@ -53,7 +53,9 @@ jobs:
         container: alpine:3.22
         steps:
         - name: Install the tools that actions expect
-          run: apk add --no-cache bash git jq curl
+          run: |
+            apk add --no-cache bash git jq curl
+            git config --global --add safe.directory /__w/github-training/github-training
         - uses: actions/checkout@v6
           with:
             persist-credentials: false
