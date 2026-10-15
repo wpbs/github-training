@@ -19,19 +19,7 @@ runs:
 
     - name: Greet
       id: greet
-      shell: python
-      run: |
-        import os
-        from datetime import datetime, timezone
-
-        who = os.environ["INPUT_WHO_TO_GREET"]
-        print(f"Hello {who}.")
-
-        # Workflow command: show an annotation in the run summary
-        print(f"::notice::Greeted {who}")
-
-        # Write outputs to the file in GITHUB_OUTPUT (not ::set-output)
-        with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-            output.write(f"time={datetime.now(timezone.utc).isoformat()}\n")
+      shell: bash
+      run: python "$GITHUB_ACTION_PATH/greet.py"
       env:
         INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
