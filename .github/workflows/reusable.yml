@@ -1,5 +1,7 @@
 name: Reusable workflow
 
+permissions:
+  contents: read
 on:
   workflow_call:
     inputs:
