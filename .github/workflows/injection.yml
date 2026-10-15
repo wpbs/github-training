@@ -1,0 +1,15 @@
+name: Script injection demo
+on:
+  pull_request:
+    types: [opened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  greet:
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Echo the title
+        run: |
+          echo "Title: ${{ github.event.pull_request.title }}"
