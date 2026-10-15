@@ -1,0 +1,14 @@
+# Create a workflow .github/workflows/containers.yml with a manual trigger and a job step-container. Add a step that runs the alpine:3.22 image through uses, and prints the contents of /etc/os-release by overriding the entrypoint.
+name: containers
+on:
+  workflow_dispatch:
+
+jobs:
+    step-container:
+        runs-on: ubuntu-26.04
+        steps:
+        - name: Run alpine container
+          uses: docker://alpine:3.22
+          with:
+            entrypoint: /bin/sh
+            args: -c "cat /etc/os-release"
